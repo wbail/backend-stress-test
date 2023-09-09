@@ -1,4 +1,7 @@
 
+using BackendStressTest.Api.Configurations;
+using Dapper;
+
 namespace BackendStressTest.Api
 {
     public class Program
@@ -8,11 +11,30 @@ namespace BackendStressTest.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDependencyInjections(builder.Configuration);
+
+            builder.Services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new DateOnlyConfiguration());
+            });
+
+            SqlMapper.AddTypeHandler(new SqlDateOnlyTypeHandler());
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(o =>
+            {
+                o.SupportNonNullableReferenceTypes();
+                o.MapType<DateOnly>(() => new()
+                {
+                    Type = "string",
+                    Example = new Microsoft.OpenApi.Any.OpenApiString("yyyy-mm-dd")
+                });
+            });
+
+            builder.Services.AddHealthChecks();
 
             var app = builder.Build();
 
@@ -23,10 +45,7 @@ namespace BackendStressTest.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
+            app.MapHealthChecks("/healthz");
 
             app.MapControllers();
 

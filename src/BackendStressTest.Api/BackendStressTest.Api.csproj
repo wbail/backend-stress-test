@@ -14,4 +14,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BackendStressTest.Application\BackendStressTest.Application.csproj" />
+    <ProjectReference Include="..\BackendStressTest.Infrastructure.CrossCutting.DI\BackendStressTest.Infrastructure.CrossCutting.DI.csproj" />
+    <ProjectReference Include="..\BackendStressTest.Messages\BackendStressTest.Messages.csproj" />
+  </ItemGroup>
+
 </Project>

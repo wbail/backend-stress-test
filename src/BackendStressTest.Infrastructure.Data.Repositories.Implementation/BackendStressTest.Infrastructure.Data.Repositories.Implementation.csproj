@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.151" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BackendStressTest.Infrastructure.Data.Repositories\BackendStressTest.Infrastructure.Data.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
