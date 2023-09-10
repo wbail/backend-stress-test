@@ -73,5 +73,97 @@ namespace BackendStressTest.Application.UnitTest
 
             Assert.Null(getPersonResponse);
         }
+
+        [Fact(Skip = "Pending abstraction from mapper")]
+        public async void PersonApplicationService_CreatePerson_ReturnsPerson()
+        {
+            Guid id = Guid.Parse("6F9A7FC5-3D01-4E68-83CB-FDF19C2E0F61");
+
+            CreatePersonRequest createPersonRequest = new CreatePersonRequest
+            {
+                Name = "Test",
+                Nickname = "TestNickname",
+                Birthdate = DateOnly.Parse("1990-01-01")
+            };
+
+            var person = new Person
+            {
+                Id = id,
+                Name = "Test",
+                Nickname = "TestNickname",
+                Birthdate = DateOnly.Parse("1990-01-01")
+            };
+
+            _personServiceMock.Setup(x => x.CreatePerson(It.IsAny<Person>()))
+                .ReturnsAsync(person);
+
+            CreatePersonResponse createPersonResponse = await _personApplicationService.CreatePerson(createPersonRequest);
+
+            Assert.NotNull(createPersonResponse);
+        }
+
+        [Fact(Skip = "Pending abstraction from mapper")]
+        public async void PersonApplicationService_CreatePerson_ReturnsException()
+        {
+            //
+        }
+
+        [Fact]
+        public async void PersonApplicationService_GetPeopleBySearchTerm_ReturnsZeroPeople()
+        {
+            string searchTerm = "Test";
+
+            List<Person> peopleMock = new List<Person>();
+
+            _personServiceMock.Setup(x => x.GetPeopleBySearchTerm(It.IsAny<string>()))
+                .ReturnsAsync(peopleMock);
+
+            IEnumerable<GetPersonResponse> people = await _personApplicationService.GetPeopleBySearchTerm(searchTerm);
+
+            Assert.NotNull(people);
+            Assert.Empty(people);
+        }
+
+        [Fact]
+        public async void PersonApplicationService_GetPeopleBySearchTerm_ReturnsCollectionOfPeople()
+        {
+            string searchTerm = "Test";
+
+            List<Person> peopleMock = new List<Person>
+            {
+                new Person
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test1",
+                    Nickname = "MyNicknameTest1",
+                    Birthdate = DateOnly.Parse("1990-01-01"),
+                    Stack = [".net", "c#", "docker"]
+                },
+                new Person
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test2",
+                    Nickname = "MyNicknameTest2",
+                    Birthdate = DateOnly.Parse("1990-02-02")
+                },
+                new Person
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test2",
+                    Nickname = "MyNicknameTest2",
+                    Birthdate = DateOnly.Parse("1990-03-03"),
+                    Stack = ["oracle", "c#", "docker", "postgres"]
+                }
+            };
+
+            _personServiceMock.Setup(x => x.GetPeopleBySearchTerm(It.IsAny<string>()))
+                .ReturnsAsync(peopleMock);
+
+            IEnumerable<GetPersonResponse> people = await _personApplicationService.GetPeopleBySearchTerm(searchTerm);
+
+            Assert.NotNull(people);
+            Assert.NotEmpty(people);
+            Assert.Equal(peopleMock.Count, people.Count());
+        }
     }
 }
