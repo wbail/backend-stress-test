@@ -6,3 +6,4 @@ global using BackendStressTest.Messages.Requests;
 global using BackendStressTest.Messages.Responses;
 global using Microsoft.Extensions.Logging;
 global using BackendStressTest.Models;
+global using BackendStressTest.Extensions;

@@ -1,5 +1,6 @@
 ﻿using BackendStressTest.Application;
 using BackendStressTest.Application.Implementation;
+using BackendStressTest.Extensions;
 using BackendStressTest.Infrastructure.Data.Repositories;
 using BackendStressTest.Infrastructure.Data.Repositories.Implementation;
 using BackendStressTest.Services;
@@ -21,6 +22,8 @@ namespace BackendStressTest.Infrastructure.CrossCutting.DI
             #region Application Layer
 
             services.AddScoped<IPersonApplicationService, PersonApplicationService>();
+
+            services.AddScoped<IMapperApplicationExtensionService, MapperApplicationExtensionService>();
 
             #endregion
 
