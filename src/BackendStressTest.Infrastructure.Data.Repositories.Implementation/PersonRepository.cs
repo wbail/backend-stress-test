@@ -1,43 +1,34 @@
-﻿using BackendStressTest.Models;
+﻿using BackendStressTest.Infrastructure.Data.UnitOfWork;
+using BackendStressTest.Models;
 using Dapper;
-using System.Data;
 
 namespace BackendStressTest.Infrastructure.Data.Repositories.Implementation
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly DbSession _dbSession;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PersonRepository(IDbConnection dbConnection)
+        public PersonRepository(DbSession dbSession, IUnitOfWork unitOfWork)
         {
-            _dbConnection = dbConnection;
+            _dbSession = dbSession;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<int> CountPeople()
         {
-            
-            using (_dbConnection)
-            {
-                _dbConnection.Open();
+            var count = await _dbSession.Connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Persons");
 
-                var count = await _dbConnection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Persons");
-                
-                _dbConnection.Close();
-
-                return count;
-            }
+            return count;
         }
 
         public async Task<Person> CreatePerson(Person person)
         {
-            using (_dbConnection)
+            try
             {
-                _dbConnection.Open();
-                using var transaction = _dbConnection.BeginTransaction();
+                _unitOfWork.BeginTransaction();
 
-                try
-                {
-                    await _dbConnection.ExecuteAsync("INSERT INTO Persons VALUES (@Id, @Nickname, @Name, @Birthdate, @Stack)",
+                await _dbSession.Connection.ExecuteAsync("INSERT INTO Persons VALUES (@Id, @Nickname, @Name, @Birthdate, @Stack)",
                     new
                     {
                         Id = person.Id,
@@ -45,31 +36,22 @@ namespace BackendStressTest.Infrastructure.Data.Repositories.Implementation
                         Name = person.Name,
                         Birthdate = person.Birthdate,
                         Stack = person.Stack
-                    }, transaction: transaction);
-                    
-                    transaction.Commit();
-                    
-                    return person;
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    _dbConnection.Close();
-                }
+                    });
+
+                _unitOfWork.Commit();
+
+                return person;
+            }
+            catch (Exception e)
+            {
+                _unitOfWork.Rollback();
+                throw;
             }
         }
 
         public async Task<IEnumerable<Person>> GetPeopleBySearchTerm(string searchTerm)
         {
-            using (_dbConnection)
-            {
-                _dbConnection.Open();
-
-                var people = await _dbConnection.QueryAsync<Person>(
+            var people = await _dbSession.Connection.QueryAsync<Person>(
                     @"SELECT p.Id, p.Name, p.Nickname, p.Birthdate, p.Stack
                     FROM persons p
                     WHERE p.Name ILIKE '%' || @Term || '%'
@@ -77,41 +59,24 @@ namespace BackendStressTest.Infrastructure.Data.Repositories.Implementation
 	                    OR @Term ILIKE SOME(p.Stack)
                     LIMIT 50;",
                     new { Term = searchTerm });
-                
-                _dbConnection.Close();
 
-                return people;
-            }
+            return people;
         }
 
         public async Task<Person> GetPersonById(Guid id)
         {
-            using (_dbConnection)
-            {
-                _dbConnection.Open();
+            var person = await _dbSession.Connection.QueryFirstOrDefaultAsync<Person>(
+                    @"SELECT * from Persons WHERE Id = @Id", new { Id = id });
 
-                var person = await _dbConnection.QueryFirstOrDefaultAsync<Person>(
-                    @"SELECT * from Persons WHERE Id = @Id", new { Id = id});
-
-                _dbConnection.Close();
-
-                return person;
-            }
+            return person;
         }
 
         public async Task<bool> NicknameExists(string nickname)
         {
-            using (_dbConnection)
-            {
-                _dbConnection.Open();
-
-                var nicknameExists = await _dbConnection.QueryFirstOrDefaultAsync<bool>(
+            var nicknameExists = await _dbSession.Connection.QueryFirstOrDefaultAsync<bool>(
                     @"SELECT 1 from Persons WHERE Nickname = @nickname", new { nickname = nickname });
 
-                _dbConnection.Close();
-
-                return nicknameExists;
-            }
+            return nicknameExists;
         }
     }
 }
