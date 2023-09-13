@@ -25,6 +25,8 @@ namespace BackendStressTest.Infrastructure.CrossCutting.DI
 
             services.AddScoped<IPersonApplicationService, PersonApplicationService>();
 
+            services.AddScoped<IMapperApplicationExtensionService, MapperApplicationExtensionService>();
+
             #endregion
 
             #region Services Layer

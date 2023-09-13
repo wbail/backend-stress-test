@@ -9,11 +9,13 @@ namespace BackendStressTest.Application.Implementation
     public class PersonApplicationService : IPersonApplicationService
     {
         private readonly IPersonService _personService;
+        private readonly IMapperApplicationExtensionService _mapper;
         private readonly ILogger<PersonApplicationService> _logger;
 
-        public PersonApplicationService(IPersonService personService, ILogger<PersonApplicationService> logger)
+        public PersonApplicationService(IPersonService personService, IMapperApplicationExtensionService mapper, ILogger<PersonApplicationService> logger)
         {
             _personService = personService;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -33,13 +35,13 @@ namespace BackendStressTest.Application.Implementation
                     return null;
                 }
 
-                var personMapped = MapperExtension.CreatePersonRequestToPerson(createPersonRequest);
+                var personMapped = _mapper.CreatePersonRequestToPerson(createPersonRequest);
 
                 personMapped.Id = Guid.NewGuid();
 
                 var person = await _personService.CreatePerson(personMapped);
 
-                return MapperExtension.PersonToCreatePersonResponse(person);
+                return _mapper.PersonToCreatePersonResponse(person);
             }
             catch (Exception e)
             {
@@ -59,7 +61,7 @@ namespace BackendStressTest.Application.Implementation
                     return new List<GetPersonResponse>();
                 }
 
-                return MapperExtension.PersonToGetPeopleResponse(people);
+                return _mapper.CollectionOfPersonToCollectionOfGetPeopleResponse(people);
             }
             catch (Exception e)
             {
@@ -80,8 +82,7 @@ namespace BackendStressTest.Application.Implementation
                     return null;
                 }
 
-                return MapperExtension.GetPersonResponseToPerson(person);
-
+                return _mapper.PersonToGetPersonResponse(person);
             }
             catch (Exception e)
             {
