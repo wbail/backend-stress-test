@@ -1,7 +1,10 @@
 ﻿using BackendStressTest.Application;
 using BackendStressTest.Application.Implementation;
+using BackendStressTest.Extensions;
+using BackendStressTest.Infrastructure.Data;
 using BackendStressTest.Infrastructure.Data.Repositories;
 using BackendStressTest.Infrastructure.Data.Repositories.Implementation;
+using BackendStressTest.Infrastructure.Data.UnitOfWork;
 using BackendStressTest.Services;
 using BackendStressTest.Services.Implementation;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +25,8 @@ namespace BackendStressTest.Infrastructure.CrossCutting.DI
 
             services.AddScoped<IPersonApplicationService, PersonApplicationService>();
 
+            services.AddScoped<IMapperApplicationExtensionService, MapperApplicationExtensionService>();
+
             #endregion
 
             #region Services Layer
@@ -32,7 +37,9 @@ namespace BackendStressTest.Infrastructure.CrossCutting.DI
 
             #region Infrastructure Layer
 
-            services.AddScoped<IDbConnection>(_ => new NpgsqlConnection(configuration.GetConnectionString("BackendStressTestDb")));
+            services.AddScoped(_ => new DbSession(configuration.GetConnectionString("BackendStressTestDb")!));
+            
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IPersonRepository, PersonRepository>();
 

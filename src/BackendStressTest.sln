@@ -15,29 +15,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Models", "5-Models", "{82
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Tests", "6-Tests", "{B1042AD5-838E-4A3A-919D-156BA5DAC94A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Api", "BackendStressTest.Api\BackendStressTest.Api.csproj", "{EDFF09D6-BC09-45E4-AB69-62BF0548F2E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Api", "BackendStressTest.Api\BackendStressTest.Api.csproj", "{EDFF09D6-BC09-45E4-AB69-62BF0548F2E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Application", "BackendStressTest.Application\BackendStressTest.Application.csproj", "{7DB40B0A-D330-4403-A0F4-42A33C82FB4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Application", "BackendStressTest.Application\BackendStressTest.Application.csproj", "{7DB40B0A-D330-4403-A0F4-42A33C82FB4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Application.Implementation", "BackendStressTest.Application.Implementation\BackendStressTest.Application.Implementation.csproj", "{F2D50DCC-A2FC-42A2-8A24-3A84176E9FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Application.Implementation", "BackendStressTest.Application.Implementation\BackendStressTest.Application.Implementation.csproj", "{F2D50DCC-A2FC-42A2-8A24-3A84176E9FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Messages", "BackendStressTest.Messages\BackendStressTest.Messages.csproj", "{6152C442-FA63-4710-A495-A238AC92CF11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Messages", "BackendStressTest.Messages\BackendStressTest.Messages.csproj", "{6152C442-FA63-4710-A495-A238AC92CF11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Extensions", "BackendStressTest.Extensions\BackendStressTest.Extensions.csproj", "{13717E55-1B80-4A94-BE99-D8BD48173A12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Extensions", "BackendStressTest.Extensions\BackendStressTest.Extensions.csproj", "{13717E55-1B80-4A94-BE99-D8BD48173A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Services", "BackendStressTest.Services\BackendStressTest.Services.csproj", "{C28D3DBB-3230-4D4E-AB1A-86DD757EDD38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Services", "BackendStressTest.Services\BackendStressTest.Services.csproj", "{C28D3DBB-3230-4D4E-AB1A-86DD757EDD38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Services.Implementation", "BackendStressTest.Services.Implementation\BackendStressTest.Services.Implementation.csproj", "{979E3F3F-E049-4D78-9FDC-322029A79F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Services.Implementation", "BackendStressTest.Services.Implementation\BackendStressTest.Services.Implementation.csproj", "{979E3F3F-E049-4D78-9FDC-322029A79F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Infrastructure.CrossCutting.DI", "BackendStressTest.Infrastructure.CrossCutting.DI\BackendStressTest.Infrastructure.CrossCutting.DI.csproj", "{BF84BE7D-4C10-4A98-BAFB-A61FEB65EC26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Infrastructure.CrossCutting.DI", "BackendStressTest.Infrastructure.CrossCutting.DI\BackendStressTest.Infrastructure.CrossCutting.DI.csproj", "{BF84BE7D-4C10-4A98-BAFB-A61FEB65EC26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Infrastructure.Data", "BackendStressTest.Infrastructure.Data\BackendStressTest.Infrastructure.Data.csproj", "{1FD682A5-DF4D-49B2-9B36-6D72BF34C66B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Infrastructure.Data", "BackendStressTest.Infrastructure.Data\BackendStressTest.Infrastructure.Data.csproj", "{1FD682A5-DF4D-49B2-9B36-6D72BF34C66B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Infrastructure.Data.Repositories", "BackendStressTest.Infrastructure.Data.Repositories\BackendStressTest.Infrastructure.Data.Repositories.csproj", "{7D82F8E7-1EC1-4E0E-B853-8BDAD2FC6D2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Infrastructure.Data.Repositories", "BackendStressTest.Infrastructure.Data.Repositories\BackendStressTest.Infrastructure.Data.Repositories.csproj", "{7D82F8E7-1EC1-4E0E-B853-8BDAD2FC6D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Infrastructure.Data.Repositories.Implementation", "BackendStressTest.Infrastructure.Data.Repositories.Implementation\BackendStressTest.Infrastructure.Data.Repositories.Implementation.csproj", "{CC6A41FD-3AAE-4704-BB2D-B356339B34D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Infrastructure.Data.Repositories.Implementation", "BackendStressTest.Infrastructure.Data.Repositories.Implementation\BackendStressTest.Infrastructure.Data.Repositories.Implementation.csproj", "{CC6A41FD-3AAE-4704-BB2D-B356339B34D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Models", "BackendStressTest.Models\BackendStressTest.Models.csproj", "{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Models", "BackendStressTest.Models\BackendStressTest.Models.csproj", "{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-3-Services", "6-3-Services", "{21A33345-F63A-4D22-A78A-4F9ECDEEC036}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendStressTest.Services.UnitTest", "BackendStressTest.Services.UnitTest\BackendStressTest.Services.UnitTest.csproj", "{28874241-A2C4-49F1-89F5-038C44907730}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-2-Application", "6-2-Application", "{7CC696AD-C7E8-4928-B9BE-D19D931924FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendStressTest.Application.UnitTest", "BackendStressTest.Application.UnitTest\BackendStressTest.Application.UnitTest.csproj", "{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +101,14 @@ Global
 		{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28874241-A2C4-49F1-89F5-038C44907730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28874241-A2C4-49F1-89F5-038C44907730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28874241-A2C4-49F1-89F5-038C44907730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28874241-A2C4-49F1-89F5-038C44907730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +126,10 @@ Global
 		{7D82F8E7-1EC1-4E0E-B853-8BDAD2FC6D2B} = {A160DA0B-84D7-42DE-9E5E-339721BA3A7B}
 		{CC6A41FD-3AAE-4704-BB2D-B356339B34D3} = {A160DA0B-84D7-42DE-9E5E-339721BA3A7B}
 		{6B118FBE-79C5-4C92-9CF9-35B6E6AECEA6} = {82411223-4BB9-41AB-9F55-168ACC6EB2F1}
+		{21A33345-F63A-4D22-A78A-4F9ECDEEC036} = {B1042AD5-838E-4A3A-919D-156BA5DAC94A}
+		{28874241-A2C4-49F1-89F5-038C44907730} = {21A33345-F63A-4D22-A78A-4F9ECDEEC036}
+		{7CC696AD-C7E8-4928-B9BE-D19D931924FC} = {B1042AD5-838E-4A3A-919D-156BA5DAC94A}
+		{7C4AEE5B-B45C-4211-9056-7F6F3EF02BC1} = {7CC696AD-C7E8-4928-B9BE-D19D931924FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F85EB3BC-49AF-4B32-A481-55A128140633}

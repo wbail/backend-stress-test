@@ -26,7 +26,7 @@ namespace BackendStressTest.Messages.Requests
 
         private bool ValidateStack()
         {
-            return !Stack.Any(x => string.IsNullOrWhiteSpace(x) || x.Length > 32);
+            return !Stack!.Any(x => string.IsNullOrWhiteSpace(x) || x.Length > 32);
         }
 
         private bool ValidateName()
