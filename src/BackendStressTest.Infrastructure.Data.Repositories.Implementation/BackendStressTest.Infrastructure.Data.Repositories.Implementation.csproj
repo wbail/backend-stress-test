@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BackendStressTest.Infrastructure.Data.Repositories\BackendStressTest.Infrastructure.Data.Repositories.csproj" />
+    <ProjectReference Include="..\BackendStressTest.Infrastructure.Data\BackendStressTest.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>
