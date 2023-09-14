@@ -33,7 +33,7 @@ namespace BackendStressTest.Api.Controllers
                     return UnprocessableEntity(createPersonRequest);
                 }
 
-                return Created($"/people/", new { id = person.Id });
+                return Created($"/people/{person.Id}", person);
             }
 
             return UnprocessableEntity(createPersonRequest);
