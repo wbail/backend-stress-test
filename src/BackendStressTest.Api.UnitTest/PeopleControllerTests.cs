@@ -141,5 +141,28 @@ namespace BackendStressTest.Api.UnitTest
             Assert.Equal(HttpStatusCode.Created, (HttpStatusCode)createdResult.StatusCode!);
             Assert.NotNull(createPersonResponse);
         }
+
+        [Fact]
+        public async void PeopleController_CreatePerson_RequestIsValid_Returns422UnprocessableEntity()
+        {
+            CreatePersonRequest createPersonRequest = new CreatePersonRequest
+            {
+                Name = "Test",
+                Nickname = "Test",
+                Birthdate = DateOnly.Parse("1990-01-01")
+            };
+
+            _personApplicationServiceMock.Setup(x => x.CreatePerson(It.IsAny<CreatePersonRequest>()))
+                .ReturnsAsync(() => null);
+
+            IActionResult result = await _peopleController.CreatePerson(createPersonRequest);
+
+            UnprocessableEntityObjectResult unprocessableEntityObjectResult = Assert.IsType<UnprocessableEntityObjectResult>(result);
+            object? createPersonResponse = unprocessableEntityObjectResult.Value;
+
+            Assert.NotNull(unprocessableEntityObjectResult);
+            Assert.Equal(HttpStatusCode.UnprocessableEntity, (HttpStatusCode)unprocessableEntityObjectResult.StatusCode!);
+            Assert.NotNull(createPersonResponse);
+        }
     }
 }
