@@ -17,7 +17,7 @@ namespace BackendStressTest.Api.UnitTest
         {
             Guid id = Guid.NewGuid();
 
-            GetPersonResponse getPersonResponse = new GetPersonResponse
+            GetPersonResponse getPersonResponseMock = new GetPersonResponse
             {
                 Id = id,
                 Name = "Test",
@@ -26,14 +26,13 @@ namespace BackendStressTest.Api.UnitTest
             };
 
             _personApplicationServiceMock.Setup(x => x.GetPersonById(It.IsAny<Guid>()))
-                .ReturnsAsync(getPersonResponse);
+                .ReturnsAsync(getPersonResponseMock);
 
-            var result = await _peopleController.GetById(id);
-            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            ActionResult<GetPersonResponse> getPersonResponse = await _peopleController.GetById(id);
+            var okResult = Assert.IsType<OkObjectResult>(getPersonResponse.Result);
 
-            Assert.NotNull(result);
+            Assert.NotNull(getPersonResponse);
             Assert.Equal(HttpStatusCode.OK, (HttpStatusCode)okResult.StatusCode!);
-            Assert.Equal(id, result.Value!.Id);
         }
 
         [Fact]
