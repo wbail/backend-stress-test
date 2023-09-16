@@ -1,7 +1,3 @@
-using BackendStressTest.Messages.Responses;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
 namespace BackendStressTest.Api.UnitTest
 {
     public class PeopleControllerTests
@@ -37,6 +33,7 @@ namespace BackendStressTest.Api.UnitTest
 
             Assert.NotNull(result);
             Assert.Equal(HttpStatusCode.OK, (HttpStatusCode)okResult.StatusCode!);
+            Assert.Equal(id, result.Value!.Id);
         }
 
         [Fact]
@@ -51,6 +48,98 @@ namespace BackendStressTest.Api.UnitTest
             var notFoundResult = Assert.IsType<NotFoundResult>(result.Result);
 
             Assert.Equal(HttpStatusCode.NotFound, (HttpStatusCode)notFoundResult.StatusCode!);
+        }
+
+        [Fact]
+        public async void PeopleController_CountPeople_Returns200Ok()
+        {
+            int count = 7;
+
+            _personApplicationServiceMock.Setup(x => x.CountPeople())
+                .ReturnsAsync(count);
+
+            ActionResult<int> result = await _peopleController.Count();
+
+            OkObjectResult okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var countPeople = okResult.Value;
+
+            Assert.NotNull(result);
+            Assert.Equal(HttpStatusCode.OK, (HttpStatusCode)okResult.StatusCode!);
+            Assert.Equal(count, countPeople);
+        }
+
+        [Fact]
+        public async void PeopleController_GetBySearchTerm_Returns200Ok()
+        {
+            string searchTerm = "test";
+
+            List<GetPersonResponse> getPersonResponsesMock = new List<GetPersonResponse>
+            {
+                new GetPersonResponse
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test1",
+                    Nickname = "Test1",
+                    Birthdate = DateOnly.Parse("1991-01-01")
+                },
+                new GetPersonResponse
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test2",
+                    Nickname = "Test2",
+                    Birthdate = DateOnly.Parse("1992-02-02")
+                },
+                new GetPersonResponse
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Test3",
+                    Nickname = "Test3",
+                    Birthdate = DateOnly.Parse("1993-03-03"),
+                    Stack = ["c#", "azure", ".net"]
+                },
+            };
+
+            _personApplicationServiceMock.Setup(x => x.GetPeopleBySearchTerm(It.IsAny<string>()))
+                .ReturnsAsync(getPersonResponsesMock);
+
+            ActionResult<IEnumerable<GetPersonResponse>> result = await _peopleController.GetBySearchTerm(searchTerm);
+            OkObjectResult okResult = Assert.IsType<OkObjectResult>(result.Result);
+            object? getPersonResponses = okResult.Value;
+
+            Assert.NotNull(result);
+            Assert.Equal(HttpStatusCode.OK, (HttpStatusCode)okResult.StatusCode!);
+            Assert.NotNull(getPersonResponses);
+        }
+
+        [Fact]
+        public async void PeopleController_CreatePerson_Returns201Created()
+        {
+            CreatePersonRequest createPersonRequest = new CreatePersonRequest
+            {
+                Name = "Test",
+                Nickname = "Test",
+                Birthdate = DateOnly.Parse("1990-01-01")
+            };
+
+            CreatePersonResponse createPersonResponseMock = new CreatePersonResponse
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test",
+                Nickname = "Test",
+                Birthdate = DateOnly.Parse("1990-01-01")
+            };
+
+            _personApplicationServiceMock.Setup(x => x.CreatePerson(It.IsAny<CreatePersonRequest>()))
+                .ReturnsAsync(createPersonResponseMock);
+
+            IActionResult result = await _peopleController.CreatePerson(createPersonRequest);
+
+            CreatedResult createdResult = Assert.IsType<CreatedResult>(result);
+            object? createPersonResponse = createdResult.Value;
+
+            Assert.NotNull(createdResult);
+            Assert.Equal(HttpStatusCode.Created, (HttpStatusCode)createdResult.StatusCode!);
+            Assert.NotNull(createPersonResponse);
         }
     }
 }
